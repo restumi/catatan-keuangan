@@ -3,9 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>catatan keuangan</title>
+    <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
     
+    <!-- AUTH SECTION -->
+     <div class="authSection">
+        <input type="email" placeholder="Email please..." id="email">
+        <input type="password" placeholder="password..." id="password">
+        <button onclick="login()">LOGIN</button>
+     </div>
+
+     <!-- APP SECTION -->
+    <div id="appSection" style="display:none;">
+        <h2>Saldo: Rp <span id="saldo">0</span></h2>
+        <input type="number" id="amount" placeholder="Jumlah">
+        <input type="text" id="note" placeholder="Keterangan">
+        <button onclick="addTransaction(true)">+ Tambah</button>
+        <button onclick="addTransaction(false)">- Kurang</button>
+
+        <h3>Riwayat Transaksi</h3>
+        <ul id="transactions"></ul>
+    </div>
+
+
+    <!-- SCRIPT CONFIG -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+    <script src="assets/script.js"></script>
 </body>
 </html>
