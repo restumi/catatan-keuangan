@@ -3,7 +3,14 @@ body {
   max-width: 400px;
   margin: auto;
   padding: 20px;
-  background: #f5f5f5;
+  background: #000000;
+  color: white;
+}
+
+#appSection{
+  display: flex;
+  justify-items: center;
+  justify-content: center;
 }
 
 h2, h3 {
@@ -18,6 +25,31 @@ input, button {
   font-size: 14px;
 }
 
+input{
+  background-color: #999;
+  width: 300px;
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 15px;
+  box-sizing: border-box;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+input:focus{
+  border-color: rgb(255, 255, 255);
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.6);
+}
+
+input:hover{
+  border-color: #ffffff;
+}
+
+input::placeholder{
+  color: #ffffff;
+  font-style: italic;
+}
+
 button {
   background: blue;
   color: white;
@@ -25,19 +57,31 @@ button {
   cursor: pointer;
 }
 
-#out{
-  margin: 8px 0;
-  padding: 10px;
-  font-size: 14;
-  border-radius: 5px;
+button#out{
   background: red;
-  color: black;
-  border: none;
-  cursor: pointer;
+  color: rgb(255, 255, 255);
+  border-radius: 20px;
+  width: 120px;
+  bottom: 20px;
+  position: absolute;
+}
+
+button#addTransaction, button#addTransactionTwo{
+  background: rgb(67, 67, 255);
+  border-radius: 20px;
+  width: 120px;
 }
 
 button:hover {
   opacity: 0.9;
+}
+
+#transactionButton{
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  /* justify-content: space-between;
+  width: 65%; */
 }
 
 #transactions {
@@ -46,8 +90,10 @@ button:hover {
 }
 
 #transactions li {
-  background: white;
+  background: rgb(0, 0, 0);
+  color: white;
   padding: 10px;
   margin: 5px 0;
-  border-radius: 6px;
+  border-radius: 20px;
+  border: 1px dotted white;
 }

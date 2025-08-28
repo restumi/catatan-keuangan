@@ -1,4 +1,19 @@
 console.log("js loaded");
+
+const amountInput = document.getElementById("amount");
+
+amountInput.addEventListener("input", function () {
+  // ambil angka saja
+  let value = this.value.replace(/\D/g, "");
+  
+  // kalau kosong, jangan kasih "Rp."
+  if (value) {
+    this.value = "Rp. " + value;
+  } else {
+    this.value = "";
+  }
+});
+
 // ==================== FIRE BASE ====================
 const firebaseConfig = {
   apiKey: "AIzaSyAwbsfMhFUSb3Ko3owNHOyo-ybU3BMO_X4",
@@ -36,7 +51,9 @@ function login(){
 function addTransaction(isAdd){
     if(!isLoggedIn) return;
 
-    const amount = parseInt(document.getElementById("amount").value);
+    let rawValue = document.getElementById("amount").value.replace(/[^0-9]/g, "")
+    const amount = parseInt(rawValue);
+
     const note = document.getElementById("note").value;
     if(!amount) return alert("input data please!")
 
@@ -48,7 +65,7 @@ function addTransaction(isAdd){
 
     db.collection("transactions").add(transaction).then(() =>{
         updateSaldo(transaction.amount);
-        document.getElementById("amount").value = "";
+        document.getElementById("amount").value = "Rp. ";
         document.getElementById("note").value = "";
     });
 }

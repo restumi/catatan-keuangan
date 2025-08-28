@@ -15,18 +15,20 @@
 
     <!-- AUTH SECTION -->
      <div id="authSection">
-        <input type="email" placeholder="Email please..." id="email">
-        <input type="password" placeholder="password..." id="password">
+        <input type="email" placeholder="Email please..." id="email" required>
+        <input type="password" placeholder="password..." id="password" required>
         <button id="loginBtn" onclick="login()">LOGIN</button>
      </div> 
 
      <!-- APP SECTION -->
     <div id="appSection" style="display:none;">
-        <h2>Saldo: Rp <span id="saldo">0</span></h2>
-        <input type="number" id="amount" placeholder="Jumlah">
-        <input type="text" id="note" placeholder="Keterangan">
-        <button onclick="addTransaction(true)">+ Tambah</button>
-        <button onclick="addTransaction(false)">- Kurang</button>
+        <h2>Total Saldo: Rp <span id="saldo">0</span></h2>
+        <input oninput="this.value = this.value.replace(/[^0-9]/g, '');" type="text" id="amount" placeholder="Rp . . ." value="Rp. " required>
+        <input type="text" id="note" placeholder="Note . . . " required>
+        <div id="transactionButton">
+            <button id="addTransaction" onclick="addTransaction(true)">+ Tambah</button>
+            <button id="addTransactionTwo" onclick="addTransaction(false)">- Kurang</button>
+        </div>
 
         <h3>Riwayat Transaksi</h3>
         <ul id="transactions"></ul>
