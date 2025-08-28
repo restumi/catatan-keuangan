@@ -1,3 +1,4 @@
+console.log("js loaded");
 // ==================== FIRE BASE ====================
 const firebaseConfig = {
   apiKey: "AIzaSyAwbsfMhFUSb3Ko3owNHOyo-ybU3BMO_X4",
@@ -10,32 +11,25 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
-
-const db = firebaseConfig.firestore();
-
-// ==================== USER ACCOUNT ====================
-const USER_CREDENTIALS = {
-    email: "ovelmi@gmail.com",
-    password: "OvelMi09"
-};
-
-let isLoggedIn = false;
+const db = firebase.firestore();
 
 // ==================== LOGIN ====================
-function login() {
+function login(){
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
 
-    if(email === USER_CREDENTIALS.email || password === USER_CREDENTIALS.password){
+    if(email === "ovelmi@gmail.com" && password === "OvelMi09"){
         isLoggedIn = true;
+        localStorage.setItem("isLoggedIn", "true");
 
         document.getElementById("authSection").style.display = "none";
         document.getElementById("appSection").style.display = "block";
+
         loadSaldo();
-        loadTransaction();
+        transaction();
     } else {
         alert("email atau password salah");
-    };
+    }
 }
 
 // ==================== ADD TRANSACTION ====================
@@ -52,16 +46,17 @@ function addTransaction(isAdd){
         date: new Date().toISOString()
     };
 
-    db.collection("transactions").add(transaction),then(() =>{
+    db.collection("transactions").add(transaction).then(() =>{
         updateSaldo(transaction.amount);
         document.getElementById("amount").value = "";
         document.getElementById("note").value = "";
     });
 }
 
+// ==================== UPDATE SALDO ====================
 function updateSaldo(change){
     const saldoRef = db.collection("saldo").doc("main");
-    saldoRef.get().then(() => {
+    saldoRef.get().then((doc) => {
         let saldo = doc.exists ? doc.data().value : 0;
         saldo += change;
         saldoRef.set({ value:saldo });
@@ -69,12 +64,14 @@ function updateSaldo(change){
     });
 }
 
+// ==================== LOAD SALDO ====================
 function loadSaldo() {
     db.collection("saldo").doc("main").onSnapshot(doc => {
         document.getElementById("saldo").innerText = doc.exists ? doc.data().value : 0;
     })
 }
 
+// ==================== TRANSACTION ====================
 function transaction(){
     db.collection("transactions").orderBy("date", "desc").onSnapshot(snapshot => {
         const list = document.getElementById("transactions");
@@ -82,8 +79,29 @@ function transaction(){
         snapshot.forEach(doc => {
             const data = doc.data();
             const li = document.createElement("li");
-            li.textContent = `${new Date(data.Date).toLocaleString()} | ${data.note} | Rp ${data.amount}`;
+            li.textContent = `${new Date(data.date).toLocaleString()} | ${data.note} | Rp ${data.amount}`;
             list.appendChild(li);
         });
     });
+}
+
+// ==================== LOGOUT ====================
+function logOut(){
+    isLoggedIn = false;
+    localStorage.removeItem("isLoggedIn");
+    document.getElementById("authSection").style.display = "block";
+    document.getElementById("appSection").style.display = "none";
+}
+
+// ==================== SAVE SESSION ====================
+window.onload = function(){
+    if(localStorage.getItem("isLoggedIn") === "true"){
+        isLoggedIn = true;
+
+        document.getElementById("authSection").style.display = "none";
+        document.getElementById("appSection").style.display = "block";
+
+        loadSaldo();
+        transaction();
+    }
 }

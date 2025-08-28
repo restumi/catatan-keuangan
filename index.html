@@ -5,15 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>catatan keuangan</title>
     <link rel="stylesheet" href="assets/style.css">
+    <!-- <script src="assets/script.js"></script> -->
 </head>
 <body>
-    
+    <!------------ STATE ----------->
+    <script>
+        let isLoggedIn = false;
+    </script>
+
     <!-- AUTH SECTION -->
-     <div class="authSection">
+     <div id="authSection">
         <input type="email" placeholder="Email please..." id="email">
         <input type="password" placeholder="password..." id="password">
-        <button onclick="login()">LOGIN</button>
-     </div>
+        <button id="loginBtn" onclick="login()">LOGIN</button>
+     </div> 
 
      <!-- APP SECTION -->
     <div id="appSection" style="display:none;">
@@ -25,12 +30,15 @@
 
         <h3>Riwayat Transaksi</h3>
         <ul id="transactions"></ul>
+
+        <button id="out" onclick="logOut()">LogOut</button>
     </div>
 
-
-    <!-- SCRIPT CONFIG -->
+    <!-- FIREBASE CONFIG -->
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-    <script src="assets/script.js"></script>
+
+    <!-- SCRIPT CONFIG -->
+    <script src="assets/script.js" defer></script>
 </body>
 </html>

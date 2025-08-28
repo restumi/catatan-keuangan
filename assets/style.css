@@ -19,8 +19,19 @@ input, button {
 }
 
 button {
-  background: #4CAF50;
+  background: blue;
   color: white;
+  border: none;
+  cursor: pointer;
+}
+
+#out{
+  margin: 8px 0;
+  padding: 10px;
+  font-size: 14;
+  border-radius: 5px;
+  background: red;
+  color: black;
   border: none;
   cursor: pointer;
 }
