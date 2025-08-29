@@ -94,23 +94,74 @@ function loadSaldo() {
 }
 
 // ==================== TRANSACTION ====================
+let allTransactions = [];
+
 function transaction(){
     db.collection("transactions").orderBy("date", "desc").onSnapshot(snapshot => {
-        const list = document.getElementById("transactions");
-        list.innerHTML = "";
+        allTransactions =[];
         snapshot.forEach(doc => {
-            const data = doc.data();
-            const li = document.createElement("li");
-            li.innerHTML = `
-                <strong>Date   : </strong> ${new Date(data.date).toLocaleString()} <br>
-                <strong>Note   : </strong> ${data.note} <br>
-                <strong>jmlh : </strong> Rp. ${rupiah.format(data.amount)}
-            `;
-
-            list.appendChild(li);
+            allTransactions.push(doc.data());
         });
+
+        renderYearMonthOptions();
+        renderTransactions();
     });
 }
+
+function renderYearMonthOptions(){
+    const yearSelect = document.getElementById("yearFilter");
+    const monthSelect = document.getElementById("monthFilter");
+
+    // Ambil tahun unik
+    const years = [...new Set(allTransactions.map(t => {
+        return new Date(t.date).getFullYear();
+    }))].sort((a, b) => b - a);
+
+    // Ambil bulan unik (pakai angka 1–12)
+    const months = [...new Set(allTransactions.map(t => {
+        return new Date(t.date).getMonth() + 1; // Januari = 1
+    }))].sort((a, b) => a - b);
+
+    // Render tahun
+    yearSelect.innerHTML = "<option value=''>Semua Tahun</option>";
+    years.forEach(y => {
+        const opt = document.createElement("option");
+        opt.value = y;
+        opt.textContent = y;
+        yearSelect.appendChild(opt);
+    });
+
+    // Render bulan
+    monthSelect.innerHTML = "<option value=''>Semua Bulan</option>";
+    months.forEach(m => {
+        const opt = document.createElement("option");
+        opt.value = m;
+        opt.textContent = new Date(0, m - 1).toLocaleString("id-ID", { month: "long" });
+        monthSelect.appendChild(opt);
+    });
+}
+
+
+function renderTransactions(){
+    const yearSelect = document.getElementById("yearFilter").value;
+    const monthSelect = document.getElementById("monthFilter").value;
+    const list = document.getElementById("transactions");
+    list.innerHTML = "";
+
+    const filtered = allTransactions.filter(t => {
+        const d = new Date(t.date);
+        const y = d.getFullYear();
+        const m = d.getMonth() + 1;
+        return (!yearSelect || y == yearSelect) && (!monthSelect || m == monthSelect);
+    });
+
+    filtered.forEach(data => {
+        const li = document.createElement("li");
+        li.textContent = `${new Date(data.date).toLocaleString()} | ${data.note} | Rp ${data.amount}`;
+        list.appendChild(li);
+    });
+}
+
 
 // ==================== LOGOUT ====================
 function logOut(){
