@@ -23,7 +23,7 @@
 
      <!-- APP SECTION -->
     <div id="appSection" style="display:none;">
-        <h2>Total Saldo: Rp <span id="saldo">0</span></h2>
+        <h2>Total Saldo: Rp. <span id="saldo">0</span></h2>
         <input oninput="this.value = this.value.replace(/[^0-9]/g, '');" type="text" id="amount" placeholder="Rp . . ." value="Rp. " required>
         <input type="text" id="note" placeholder="Note . . . " required>
         <div id="transactionButton">
@@ -32,6 +32,12 @@
         </div>
 
         <h3>Riwayat Transaksi</h3>
+
+        <div id="filter" style="margin-bottom:10px;">
+            <select id="yearFilter" onchange="renderTransactions()"></select>
+            <select id="monthFilter" onchange="renderTransactions()"></select>
+        </div>
+
         <ul id="transactions"></ul>
 
         <button id="out" onclick="logOut()">LogOut</button>

@@ -99,8 +99,35 @@ button:hover {
   display: flex;
   flex-direction: row;
   gap: 10px;
-  /* justify-content: space-between;
-  width: 65%; */
+}
+
+#filter{
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+}
+
+#filter select{
+  background: #000000;
+  padding: 6px 10px;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+}
+
+#filter select:focus{
+  outline: none;
+  border-color: rgb(67, 67, 255);
+  box-shadow: 0 0 5px rgba(67, 67, 255, 0.6);
+}
+
+#opsi
+{
+  background: #000000;
+  padding: 6px 10px;
+  border-radius: 10px;
+  gap: 2px;
+  color: #ffffff;
 }
 
 #transactions {

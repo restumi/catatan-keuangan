@@ -81,10 +81,15 @@ function updateSaldo(change){
     });
 }
 
+// ==================== NUMBER FORMAT ====================
+const rupiah = new Intl.NumberFormat("id-ID");
+
 // ==================== LOAD SALDO ====================
 function loadSaldo() {
     db.collection("saldo").doc("main").onSnapshot(doc => {
-        document.getElementById("saldo").innerText = doc.exists ? doc.data().value : 0;
+        document.getElementById("saldo").innerText = doc.exists 
+            ? rupiah.format(doc.data().value)
+            : 0;
     })
 }
 
@@ -96,7 +101,12 @@ function transaction(){
         snapshot.forEach(doc => {
             const data = doc.data();
             const li = document.createElement("li");
-            li.textContent = `${new Date(data.date).toLocaleString()} | ${data.note} | Rp ${data.amount}`;
+            li.innerHTML = `
+                <strong>Date   : </strong> ${new Date(data.date).toLocaleString()} <br>
+                <strong>Note   : </strong> ${data.note} <br>
+                <strong>jmlh : </strong> Rp. ${rupiah.format(data.amount)}
+            `;
+
             list.appendChild(li);
         });
     });
