@@ -30,21 +30,31 @@ const db = firebase.firestore();
 
 // ==================== LOGIN ====================
 function login(){
+    console.log("button ok");
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
 
-    if(email === "ovelmi@gmail.com" && password === "OvelMi09"){
-        isLoggedIn = true;
-        localStorage.setItem("isLoggedIn", "true");
+    db.collection("users")
+        .where("email", "==", email)
+        .where("password", "==", password)
+        .get()
+        .then((snapshot) => {
+            if(!snapshot.empty){
+                isLoggedIn = true;
+                localStorage.setItem("isLoggedIn", "true");
 
-        document.getElementById("authSection").style.display = "none";
-        document.getElementById("appSection").style.display = "block";
+                document.getElementById("authSection").style.display = "none";
+                document.getElementById("appSection").style.display = "block";
 
-        loadSaldo();
-        transaction();
-    } else {
-        alert("email atau password salah");
-    }
+                loadSaldo();
+                transaction();
+            } else {
+                alert("email atau password salah");
+            }
+        })
+    .catch((error) =>{
+        console.log("error = ", error);
+    });
 }
 
 // ==================== ADD TRANSACTION ====================
