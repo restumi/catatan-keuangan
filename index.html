@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>catatan keuangan</title>
     <link rel="stylesheet" href="assets/style.css">
-    <!-- <script src="assets/script.js"></script> -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
 </head>
 <body>
     <!------------ STATE ----------->
@@ -14,7 +14,6 @@
     </script>
 
     <!-- AUTH SECTION -->
-    
     <div id="authSection">
         <input type="email" placeholder="Email please..." id="email" required>
         <input type="password" placeholder="password..." id="password" required>
@@ -23,6 +22,13 @@
 
      <!-- APP SECTION -->
     <div id="appSection" style="display:none;">
+        <nav>
+            <button id="out" onclick="logOut()">
+                <i class="fa-solid fa-right-from-bracket"></i>
+            </button>
+            <a id="redir" href="mingguan.html"><strong>Mingguan</strong></a>
+        </nav>
+
         <h2>Total Saldo: Rp. <span id="saldo">0</span></h2>
         <input oninput="this.value = this.value.replace(/[^0-9]/g, '');" type="text" id="amount" placeholder="Rp . . ." value="Rp. " required>
         <input type="text" id="note" placeholder="Note . . . " required>
@@ -39,8 +45,6 @@
         </div>
 
         <ul id="transactions"></ul>
-
-        <button id="out" onclick="logOut()">LogOut</button>
     </div>
 
     <!-- FIREBASE CONFIG -->

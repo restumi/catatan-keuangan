@@ -25,6 +25,42 @@ body {
   display: flex;
   justify-items: center;
   justify-content: center;
+  position: absolute;
+  left: 0;
+  width: 100%;
+  top: 0px;
+}
+
+#appSectionTwo{
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  left: 0;
+  width: 100%;
+  top: 0px;
+}
+
+#appSection nav{
+  top: 0px;
+  width: 80%;
+  background-color: blue;
+  border-radius:  0px 0px 25px 25px;
+  display: flex;
+  padding: 5px;
+  justify-content: space-around;
+}
+
+#appSectionTwo nav{
+  top: 0px;
+  width: 80%;
+  background-color: blue;
+  border-radius:  0px 0px 25px 25px;
+  display: flex;
+  padding: 5px;
+  gap: 10px;
 }
 
 h2, h3 {
@@ -80,9 +116,41 @@ button#out{
   background: red;
   color: rgb(255, 255, 255);
   border-radius: 20px;
+  width: 50px;
+  font-size: larger;
+}
+
+#out i{
+  transform: rotate(180deg);
+}
+
+#redir{
+  background: red;
+  color: rgb(255, 255, 255);
+  text-decoration: none;
+  border-radius: 20px;
   width: 120px;
   bottom: 20px;
-  position: absolute;
+  padding: 10px;
+  margin: 8px 0;
+  width: 120px;
+  display: block;
+  text-align: center;
+}
+
+a#out{
+  background: red;
+  color: rgb(255, 255, 255);
+  text-decoration: none;
+  border-radius: 20px;
+  width: 120px;
+  bottom: 20px;
+  padding: 10px;
+  margin: 8px 0;
+  width: 30px;
+  display: block;
+  text-align: center;
+  font-size: larger;
 }
 
 button#addTransaction, button#addTransactionTwo{

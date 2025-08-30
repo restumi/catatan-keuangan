@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Batas Mingguan</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div id="appSectionTwo">
+        <nav>
+            <a id="out" href="index.html">
+                <i class="fa-solid fa-right-from-bracket"></i>
+            </a>
+            <h4>Sisa Saldo Mingguan</h4>
+        </nav>
+
+        <h2>Sisa: Rp. <span id="saldo">50000</span></h2>
+        <input oninput="this.value = this.value.replace(/[^0-9]/g, '');" type="text" id="amount" placeholder="Rp . . ." value="Rp. " required>
+        <input type="text" id="note" placeholder="Note . . . " required>
+        <div id="transactionButton">
+            <button id="addTransaction" onclick="addWeeklyTransaction(true)">+ Tambah</button>
+            <button id="addTransactionTwo" onclick="addWeeklyTransaction(false)">- Kurang</button>
+        </div>
+
+        <h3>Riwayat Mingguan</h3>
+        <ul id="transactions"></ul>
+    </div>
+
+    <!-- FIREBASE CONFIG -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+    <!-- SCRIPT CONFIG -->
+    <script src="assets/script_weakly.js" defer></script>
+</body>
+</html>
