@@ -8,9 +8,15 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
 </head>
 <body>
-    <div id="appSectionTwo">
+    <!-- LOADING ANIMATION -->
+    <div id="loader">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- APP SECTION -->
+    <div id="appSectionTwo" style="display: none;">
         <nav>
-            <a id="out" href="index.html">
+            <a id="out" href="index.html" >
                 <i class="fa-solid fa-right-from-bracket"></i>
             </a>
             <h4>Sisa Saldo Mingguan</h4>
@@ -31,6 +37,7 @@
     <!-- FIREBASE CONFIG -->
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 
     <!-- SCRIPT CONFIG -->
     <script src="assets/script_weakly.js" defer></script>

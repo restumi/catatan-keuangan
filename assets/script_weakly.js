@@ -22,6 +22,7 @@ const firebaseConfig = {
 };
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
+const auth = firebase.auth();
 
 // ==================== WEEKLY CONFIG ====================
 const WEEKLY_LIMIT = 50000;
@@ -134,3 +135,17 @@ window.addEventListener("DOMContentLoaded", () => {
 
   loadWeeklySaldo();
 });
+
+// ==================== SAVE SESSION ====================
+window.onload = function () {
+  auth.onAuthStateChanged(user => {
+    document.getElementById("loader").style.display = "none";
+
+    if (user) {
+      document.getElementById("appSectionTwo").style.display = "block";
+      loadWeeklySaldo();
+    } else {
+      window.location.href = "index.html";
+    }
+  });
+};

@@ -13,8 +13,13 @@
         let isLoggedIn = false;
     </script>
 
+    <!-- LOADING ANIMATION -->
+    <div id="loader">
+        <div class="spinner"></div>
+    </div>
+
     <!-- AUTH SECTION -->
-    <div id="authSection">
+    <div id="authSection" style="display: none;">
         <input type="email" placeholder="Email please..." id="email" required>
         <input type="password" placeholder="password..." id="password" required>
         <button id="loginBtn" onclick="login()">LOGIN</button>
@@ -50,6 +55,8 @@
     <!-- FIREBASE CONFIG -->
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+
 
     <!-- SCRIPT CONFIG -->
     <script src="assets/script.js" defer></script>

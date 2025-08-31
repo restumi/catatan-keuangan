@@ -6,6 +6,27 @@ body {
   background: #000000;
   color: white;
 }
+ /* style="display:flex;justify-content:center;align-items:center;height:100vh; */
+
+#loader{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.spinner{
+  border: 6px solid #f3f3f3;
+  border-top: 6px solid #000;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  100% { transform: rotate(360deg); }
+}
 
 #authSection{
   position: absolute;

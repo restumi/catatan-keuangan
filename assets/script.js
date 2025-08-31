@@ -27,34 +27,24 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
+const auth = firebase.auth();
 
 // ==================== LOGIN ====================
-function login(){
-    console.log("button ok");
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
+function login() {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
 
-    db.collection("users")
-        .where("email", "==", email)
-        .where("password", "==", password)
-        .get()
-        .then((snapshot) => {
-            if(!snapshot.empty){
-                isLoggedIn = true;
-                localStorage.setItem("isLoggedIn", "true");
+  auth.signInWithEmailAndPassword(email, password)
+    .then(user => {
+      console.log("Login sukses:", user);
 
-                document.getElementById("authSection").style.display = "none";
-                document.getElementById("appSection").style.display = "block";
+      document.getElementById("authSection").style.display = "none";
+      document.getElementById("appSection").style.display = "block";
 
-                loadSaldo();
-                transaction();
-            } else {
-                alert("email atau password salah");
-            }
-        })
-    .catch((error) =>{
-        console.log("error = ", error);
-    });
+      loadSaldo();
+      transaction();
+    })
+    .catch(err => alert("Login gagal: " + err.message));
 }
 
 // ==================== ADD TRANSACTION ====================
@@ -179,21 +169,30 @@ function renderTransactions(){
 
 // ==================== LOGOUT ====================
 function logOut(){
-    isLoggedIn = false;
-    localStorage.removeItem("isLoggedIn");
-    document.getElementById("authSection").style.display = "block";
-    document.getElementById("appSection").style.display = "none";
+    auth.signOut().then(() => {
+        console.log("logout success");
+        document.getElementById("authSection").style.display = "block";
+        document.getElementById("appSection").style.display = "none";
+    }).catch((error) => {
+        console.log("logOut gagal: ", error);
+    });
 }
 
 // ==================== SAVE SESSION ====================
-window.onload = function(){
-    if(localStorage.getItem("isLoggedIn") === "true"){
-        isLoggedIn = true;
+window.onload = function () {
+  auth.onAuthStateChanged(user => {
+    document.getElementById("loader").style.display = "none"; // matiin loader
 
-        document.getElementById("authSection").style.display = "none";
-        document.getElementById("appSection").style.display = "block";
-
-        loadSaldo();
-        transaction();
+    if (user) {
+      // user login
+      document.getElementById("authSection").style.display = "none";
+      document.getElementById("appSection").style.display = "block";
+      loadSaldo();
+      transaction();
+    } else {
+      // user belum login
+      document.getElementById("authSection").style.display = "block";
+      document.getElementById("appSection").style.display = "none";
     }
-}
+  });
+};
