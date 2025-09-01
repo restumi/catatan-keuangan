@@ -28,12 +28,13 @@ const auth = firebase.auth();
 const WEEKLY_LIMIT = 50000;
 const rupiah = new Intl.NumberFormat("id-ID");
 
-// Buat weekId: tahun-minggu
+// Hitung weekId berdasarkan hari senin
 function getWeekId(date = new Date()) {
-  const year = date.getFullYear();
-  const firstDay = new Date(year, 0, 1);
-  const week = Math.ceil((((date - firstDay) / 86400000) + firstDay.getDay() + 1) / 7);
-  return `${year}-${week}`;
+  const d = new Date(date);
+  const day = d.getDay(); // Minggu=0, Senin=1, ...
+  const diff = d.getDate() - day + (day === 0 ? -6 : 1); // ambil Senin minggu ini
+  const monday = new Date(d.setDate(diff));
+  return monday.toISOString().split("T")[0]; // contoh: "2025-09-01"
 }
 
 // ✅ Increment saldo global secara atomik
@@ -107,8 +108,9 @@ function loadWeeklySaldo() {
         items.forEach((data) => {
           const li = document.createElement("li");
           li.innerHTML = `
-            <strong>${new Date(data.date).toLocaleString("id-ID")}</strong><br>
-            ${data.note} — Rp ${rupiah.format(data.amount)}
+            <strong>date : </strong>${new Date(data.date).toLocaleString("id-ID")}<br>
+            <strong>note : </strong>${data.note}<br>
+            <strong>jmlh : </strong> Rp. ${rupiah.format(data.amount)}
           `;
           list.appendChild(li);
         });
