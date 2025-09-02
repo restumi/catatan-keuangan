@@ -49,8 +49,6 @@ function login() {
 
 // ==================== ADD TRANSACTION ====================
 function addTransaction(isAdd){
-    if(!isLoggedIn) return;
-
     let rawValue = document.getElementById("amount").value.replace(/[^0-9]/g, "")
     const amount = parseInt(rawValue);
 
