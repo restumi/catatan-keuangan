@@ -147,6 +147,7 @@ function renderTransactions(){
     const monthSelect = document.getElementById("monthFilter").value;
     const list = document.getElementById("transactions");
     list.innerHTML = "";
+    let totalPengeluaran = 0;
 
     const filtered = allTransactions.filter(t => {
         const d = new Date(t.date);
@@ -163,7 +164,13 @@ function renderTransactions(){
                 <strong>jmlh : </strong> Rp. ${rupiah.format(data.amount)}
             `;
         list.appendChild(li);
+
+        if(data.amount < 0){
+            totalPengeluaran += Math.abs(data.amount);
+        }
     });
+
+    document.getElementById("totalPengeluaran").innerHTML = rupiah.format(totalPengeluaran);
 }
 
 
@@ -181,7 +188,7 @@ function logOut(){
 // ==================== SAVE SESSION ====================
 window.onload = function () {
   auth.onAuthStateChanged(user => {
-    document.getElementById("loader").style.display = "none"; // matiin loader
+    document.getElementById("loader").style.display = "none";
 
     if (user) {
       // user login
