@@ -146,7 +146,7 @@ button#out{
 }
 
 #redir{
-  background: red;
+  background: rgb(30, 182, 0);
   color: rgb(255, 255, 255);
   text-decoration: none;
   border-radius: 20px;
@@ -160,7 +160,7 @@ button#out{
 }
 
 a#out{
-  background: red;
+  background: blue;
   color: rgb(255, 255, 255);
   text-decoration: none;
   border-radius: 20px;
