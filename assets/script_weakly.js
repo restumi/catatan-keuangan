@@ -5,7 +5,7 @@ const amountInput = document.getElementById("amount");
 amountInput.addEventListener("input", function () {
   // ambil angka saja
   let value = this.value.replace(/\D/g, "");
-  
+
   // kalau kosong, jangan kasih "Rp."
   if (value) {
     this.value = "Rp. " + value;
@@ -31,10 +31,21 @@ const rupiah = new Intl.NumberFormat("id-ID");
 // Hitung weekId berdasarkan hari senin
 function getWeekId(date = new Date()) {
   const d = new Date(date);
-  const day = d.getDay(); // Minggu=0, Senin=1, ...
-  const diff = d.getDate() - day + (day === 0 ? -6 : 1); // ambil Senin minggu ini
-  const monday = new Date(d.setDate(diff));
-  return monday.toISOString().split("T")[0]; // contoh: "2025-09-01"
+  let day = d.getDay(); // 0=Sunday, 1=Monday, ..., 6=Saturday
+
+  if (day === 0) day = 7; // anggap Minggu = 7
+
+  // cari Senin minggu ini
+  const monday = new Date(d);
+  monday.setDate(d.getDate() - day + 1);
+
+  const year = monday.getFullYear();
+  const month = String(monday.getMonth() + 1).padStart(2, "0");
+  const dayNum = String(monday.getDate()).padStart(2, "0");
+
+  const result = `${year}-${month}-${dayNum}`;
+
+  return result;
 }
 
 // ✅ Increment saldo global secara atomik
@@ -84,8 +95,7 @@ async function addWeeklyTransaction(isAdd) {
 // ==================== LOAD WEEKLY SALDO & LIST ====================
 function loadWeeklySaldo() {
   const weekId = getWeekId();
-
-  // Hapus orderBy agar gak perlu composite index; sort di client
+  
   db.collection("transactions")
     .where("weekId", "==", weekId)
     .onSnapshot(
